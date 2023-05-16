@@ -1,74 +1,74 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
 
 import FormButton from '../components/formButton';
 import FormInput from '../components/formInput';
-import Loading from "../naviguation/authProvider";
+import Loading from '../components/loading';
 import { AuthContext } from '../naviguation/authProvider';
 
 export default function SignupScreen({ navigation }) {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
   const [cell, setCell] = useState('');
 
   const { register, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (
-    <View style={styles.container}>
-      <Title style={styles.titleText}>Commençons votre inscription!</Title>
-      <FormInput
-        labelName='nom complet'
-        value={displayName}
-        autoCapitalize='none'
-        onChangeText={(userDisplayName) => setDisplayName(userDisplayName)}
-      />
-      <FormInput
-        labelName='Email'
-        value={email}
-        autoCapitalize='none'
-        onChangeText={(userEmail) => setEmail(userEmail)}
-      />
-      <FormInput
-        labelName='Password'
-        value={password}
-        secureTextEntry={true}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-      />
-      <FormInput
-        labelName='confirmer votre password'
-        value={password}
-        secureTextEntry={true}
-        onChangeText={(userPassword) => setPassword(userPassword)}
-      />
-      <FormInput
-        labelName='Cellulaire'
-        value={cell}
-        autoCapitalize='none'
-        onChangeText={(userCell) => setCell(userCell)}
-      />
+      <View style={styles.container}>
+        <Title style={styles.titleText}>Inscrivez-vous!</Title>
+        <FormInput
+            labelName='Display Name'
+            value={displayName}
+            autoCapitalize='none'
+            onChangeText={(userDisplayName) => setDisplayName(userDisplayName)}
+        />
+        <FormInput
+            labelName='Email'
+            value={email}
+            autoCapitalize='none'
+            onChangeText={(userEmail) => setEmail(userEmail)}
+        />
+        <FormInput
+            labelName='Password'
+            value={password}
+            secureTextEntry={true}
+            onChangeText={(userPassword) => setPassword(userPassword)}
+        />
+        <FormInput
+            labelName='Confirm password'
+            value={password2}
+            secureTextEntry={true}
+            onChangeText={(userPassword) => setPassword2(userPassword)}
+        />
+        <FormInput
+            labelName='Cellulaire'
+            value={cell}
+            autoCapitalize='none'
+            onChangeText={(cell) => setCell(cell)}
+        />
 
-      <FormButton
-        title='Signup'
-        modeValue='contained'
-        labelStyle={styles.loginButtonLabel}
-        onPress={() => {
-          register(displayName, email, password, cell)
-        }}
-      />
-      <IconButton
-        icon='keyboard-backspace'
-        size={30}
-        style={styles.navButton}
-        iconColor='#5b3a70'
-        onPress={() => navigation.goBack()}
-      />
-    </View>
+        
+        <FormButton
+            title='Signup'
+            modeValue='contained'
+            labelStyle={styles.loginButtonLabel}
+            onPress={() => register(displayName, email, password)}
+        />
+        <IconButton
+            icon='keyboard-backspace'
+            size={30}
+            style={styles.navButton}
+            iconColor='#5b3a70'
+            onPress={() => navigation.goBack()}
+        />
+      </View>
   );
 }
 
